@@ -1,6 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+const port = process.env.PORT || 3000;
 
 var app = express();
 
@@ -18,11 +19,7 @@ app.use((req, res, next) => {
     let now = new Date().toString();
     let log = `${now}: ${req.method} ${req.url}`;
     console.log(log);
-    // console.log(req);
-
-
-
-    fs.appendFile('requset.log', req, (err) => {
+    fs.appendFile('server.log', req, (err) => {
         if (err) {
             console.log('Unable to append server.log');
         }
@@ -56,4 +53,4 @@ app.get('/bad', (req, res) => {
 });
 
 
-app.listen(3000, () => console.log('Server is start on port 3000'));
+app.listen(port, () => console.log(`Server is start on port ${port}`));
