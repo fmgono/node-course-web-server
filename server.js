@@ -19,7 +19,7 @@ app.use((req, res, next) => {
     let now = new Date().toString();
     let log = `${now}: ${req.method} ${req.url}`;
     console.log(log);
-    fs.appendFile('server.log', req, (err) => {
+    fs.appendFile('server.log', log + '\n', (err) => {
         if (err) {
             console.log('Unable to append server.log');
         }
@@ -51,6 +51,13 @@ app.get('/bad', (req, res) => {
         errorMessage: 'Unable to handle request'
     })
 });
+
+app.get('/project', (req,res) => {
+    res.render('project.hbs', {
+        pageTitle: 'My Project',
+        message: 'Welcome to My Project !'
+    });
+})
 
 
 app.listen(port, () => console.log(`Server is start on port ${port}`));
